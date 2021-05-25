@@ -7,6 +7,7 @@ import { ResponseDto } from "src/dto/response.dto";
 
 import { Client } from "src/entities/client";
 import { CreateClientDto } from "src/modules/client/dto/create-client.dto";
+import { UpdateClientDto } from "src/modules/client/dto/update-client.dto";
 
 export class ClientRepository {
     constructor(
@@ -23,6 +24,7 @@ export class ClientRepository {
                 email: createClientDto.email,
                 phone: createClientDto.phone,
                 cpf: createClientDto.cpf,
+                createdAt: new Date()
             });
 
             try {
@@ -109,11 +111,24 @@ export class ClientRepository {
         }
     }
 
-    async update(id: MongooseSchema.Types.ObjectId) {
+    async update(id: MongooseSchema.Types.ObjectId, client: UpdateClientDto) {
+        const exists = await this.getById(id);
 
+        if (exists) {
+            const updated = await this.model.updateOne(client);
+            return updated;
+        } else {
+            throw new ConflictException('Id não localizado.');            
+        }
     }
 
     async delete(id: MongooseSchema.Types.ObjectId) {
-
+        try {
+            const deleted = await this.model.deleteOne({ _id: id });
+            console.log(deleted);
+            return true;
+        } catch (error) {
+            throw new InternalServerErrorException('Erro ao deletar cliente.');
+        }
     }
 }
