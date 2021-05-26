@@ -115,7 +115,7 @@ export class ClientRepository {
         const exists = await this.getById(id);
 
         if (exists) {
-            const updated = await this.model.updateOne(client);
+            const updated = await this.model.findOneAndUpdate({ _id: id }, client, { upsert: true });
             return updated;
         } else {
             throw new ConflictException('Id não localizado.');            

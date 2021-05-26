@@ -26,7 +26,7 @@ export class ConfigService {
 
     public async getMongoConfig() {
         return {
-            uri: `mongodb+srv://${this.get('MONGO_USER')}:${this.get('MONGO_PASSWORD')}@${this.get('MONGO_HOST')}/myFirstDatabase?retryWrites=true&w=majority`,
+            uri: `mongodb+srv://${this.get('MONGO_USER')}:${this.get('MONGO_PASSWORD')}@${this.get('MONGO_HOST')}/${this.get('MONGO_DB')}?retryWrites=true&w=majority`,
             useNewUrlParser: true,
             useCreateIndex: true,
             useUnifiedTopology: true,
