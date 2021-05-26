@@ -20,6 +20,27 @@ export class Client {
 
     @Prop({ auto: new Date() })
     updatedAt: Date;
+
+    @Prop({ require: false })
+    cep: string;
+
+    @Prop({ require: false })
+    numero: number;
+    
+    @Prop({ require: false })
+    logradouro: string;
+    
+    @Prop({ require: false })
+    complemento: string;
+    
+    @Prop({ require: false })
+    bairro: string;
+    
+    @Prop({ require: false })
+    localidade: string;
+    
+    @Prop({ require: false })
+    uf: string;
 }
 
 export const ClientSchema = SchemaFactory.createForClass(Client);

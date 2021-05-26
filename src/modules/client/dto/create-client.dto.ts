@@ -21,4 +21,39 @@ export class CreateClientDto {
         type: String
     })
     phone: string;
+
+    @ApiPropertyOptional({
+        type: String
+    })
+    cep: string;
+
+    @ApiPropertyOptional({
+        type: Number
+    })
+    numero: number;
+    
+    @ApiPropertyOptional({
+        type: String
+    })
+    logradouro: string;
+    
+    @ApiPropertyOptional({
+        type: String
+    })
+    complemento: string;
+    
+    @ApiPropertyOptional({
+        type: String
+    })
+    bairro: string;
+    
+    @ApiPropertyOptional({
+        type: String
+    })
+    localidade: string;
+    
+    @ApiPropertyOptional({
+        type: String
+    })
+    uf: string;
 }
