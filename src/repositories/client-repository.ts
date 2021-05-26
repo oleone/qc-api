@@ -32,7 +32,14 @@ export class ClientRepository {
                 email: createClientDto.email,
                 phone: createClientDto.phone,
                 cpf: createClientDto.cpf,
-                createdAt: new Date()
+                createdAt: new Date(),
+                bairro: createClientDto.bairro,
+                cep: createClientDto.cep,
+                complemento: createClientDto.complemento,
+                localidade: createClientDto.localidade,
+                logradouro: createClientDto.logradouro,
+                numero: createClientDto.numero,
+                uf: createClientDto.uf,
             });
 
             try {
