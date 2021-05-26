@@ -114,7 +114,10 @@ export class ClientRepository {
     async update(id: MongooseSchema.Types.ObjectId, client: UpdateClientDto) {
         const exists = await this.getById(id);
 
+        console.log(exists, client);
+
         if (exists) {
+            delete client['_id'];
             const updated = await this.model.findOneAndUpdate({ _id: id }, client, { upsert: true });
             return updated;
         } else {

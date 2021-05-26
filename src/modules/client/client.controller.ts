@@ -26,8 +26,7 @@ export class ClientController {
     }
 
     @Put(':id')
-    @ApiParam({ name: 'id', type: MongooseSchema.Types.ObjectId })
-    async updateClient(@Param('id') id: MongooseSchema.Types.ObjectId, client: UpdateClientDto, @Res() res: any) {
+    async updateClient(@Param('id') id: MongooseSchema.Types.ObjectId, @Body() client: UpdateClientDto, @Res() res: any) {
         const updated: any = await this.service.update(id, client);
         return res.status(HttpStatus.CREATED).send(updated);
     }

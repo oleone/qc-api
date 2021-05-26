@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Mongoose } from "mongoose";
 
 @Schema()
 export class Client {
