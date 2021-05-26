@@ -16,9 +16,17 @@ export class ClientRepository {
     ) { }
 
     async create(createClientDto: CreateClientDto) {
-        const clientExists: any = await this.getByEmail(createClientDto.email);
+        const emailExists: any = await this.getByEmail(createClientDto.email);
+        const cpfExists: any = await this.getByCPF(createClientDto.cpf);
 
-        if (!clientExists) {
+        if (emailExists) {
+            throw new ConflictException('Já existe um cliente com e-mail cadastrado.');
+        }
+        if (cpfExists) {
+            throw new ConflictException('Já existe um cliente com esse CPF cadastrado.');
+        }
+
+        if (!emailExists && !cpfExists) {
             const newClient = new this.model({
                 name: createClientDto.name,
                 email: createClientDto.email,
@@ -32,13 +40,6 @@ export class ClientRepository {
                 return createdClient;
             } catch (error) {
                 throw new InternalServerErrorException('Erro ao cadastrar registro no banco', error);
-            }
-        } else {
-            if (clientExists.email === createClientDto.email) {
-                throw new ConflictException('O e-mail já foi cadastrado no banco.');
-            }
-            if (clientExists.cpf === createClientDto.cpf) {
-                throw new ConflictException('Já existe um cliente com esse mesmo CPF cadastrado.');
             }
         }
     }
@@ -96,6 +97,15 @@ export class ClientRepository {
     async getByEmail(email: string) {
         try {
             const client = await this.model.findOne({ email });
+            return client;
+        } catch (error) {
+            throw new InternalServerErrorException('Erro ao consultar banco ', error);
+        }
+    }
+
+    async getByCPF(cpf: string) {
+        try {
+            const client = await this.model.findOne({ cpf });
             return client;
         } catch (error) {
             throw new InternalServerErrorException('Erro ao consultar banco ', error);
